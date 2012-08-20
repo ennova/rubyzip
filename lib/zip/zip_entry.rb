@@ -59,9 +59,9 @@ module Zip
     attr_reader :ftype, :filepath # :nodoc:
 
     def initialize(zipfile = "", name = "", comment = "", extra = "",
-                   compressed_size = 0, crc = 0, 
+                   compressed_size = 0, crc = 0,
                    compression_method = ZipEntry::DEFLATED, size = 0,
-                   time  = DOSTime.now)
+                   time  = DOSTime.new)
       super()
       if name.start_with?("/")
         raise ZipEntryNameError, "Illegal ZipEntry name '#{name}', name must not start with /"
@@ -449,7 +449,7 @@ module Zip
         @localHeaderOffset                ,
         @name                             ,
         @extra                            ,
-        @comment                          
+        @comment
       ]
 
       io << tmp.pack('VCCvvvvvVVVvvvvvVV')
